@@ -116,8 +116,10 @@ public class ApolloEmbeddedBrokerFactory {
 				connector.bind = "tcp://0.0.0.0:" + stompTcpPort;
 				connector.connection_limit = maxConnectionLimit;
 
+
+
 				StompDTO stompDto = new StompDTO();
-				connector.other.add(stompDto);
+				connector.protocols.add(stompDto);
 				// TODO Verify that this really works once authentication is used
 				stompDto.add_user_headers.addAll(addUserHeaders);
 

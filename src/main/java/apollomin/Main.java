@@ -18,6 +18,7 @@ import asia.stampy.common.gateway.StampyMessageListener;
 import asia.stampy.common.message.StampyMessage;
 import asia.stampy.common.message.StompMessageType;
 import asia.stampy.server.message.message.MessageMessage;
+import de.uniluebeck.itm.util.logging.LogLevel;
 import de.uniluebeck.itm.util.logging.Logging;
 
 public class Main {
@@ -26,7 +27,7 @@ public class Main {
 		// Set up logging
 		SLF4JBridgeHandler.removeHandlersForRootLogger(); // (since SLF4J 1.6.5)
 		SLF4JBridgeHandler.install();
-		Logging.setLoggingDefaults();
+		Logging.setLoggingDefaults(LogLevel.DEBUG);
 
 		final Logger log = LoggerFactory.getLogger(Main.class);
 
