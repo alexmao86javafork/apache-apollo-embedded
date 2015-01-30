@@ -1,5 +1,4 @@
-To run, use 
-
+To run, execute 
 	mvn exec:java
 
 
