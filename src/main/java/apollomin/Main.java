@@ -1,11 +1,9 @@
 package apollomin;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Map.Entry;
 
 import org.apache.activemq.apollo.broker.Broker;
+import org.apache.activemq.apollo.dto.BrokerDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.bridge.SLF4JBridgeHandler;
@@ -32,8 +30,11 @@ public class Main {
 		final Logger log = LoggerFactory.getLogger(Main.class);
 
 		// Create an embedded broker instance
-		Set<String> queueNames = new HashSet<>(Arrays.asList("queue1"));
-		Broker broker = ApolloEmbeddedBrokerFactory.create(8888, 8889, queueNames, 100, "src/main/resources/demo.jaas");
+		BrokerDTO brokerConfig = new ApolloConfigurationBuilder().stomp(8889).queueNonPersistentNoExpiration("queue1").externalAccess()
+				.authenticatedHeader("authenticated-user-name").jaasAuthentication("src/main/resources/demo.jaas")
+				.alwaysTrueAuthorization().build();
+
+		Broker broker = ApolloEmbeddedFactory.start(brokerConfig);
 
 		// Create a listener
 		ClientNettyMessageGateway listener = StompClientStampyFactory.createClientConnection("localhost", 8889, "demo", "demo");
