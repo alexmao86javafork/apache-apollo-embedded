@@ -1,4 +1,4 @@
-package apollomin;
+package apollomin.factory;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

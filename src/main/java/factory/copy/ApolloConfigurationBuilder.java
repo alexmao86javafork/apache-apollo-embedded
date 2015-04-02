@@ -1,17 +1,21 @@
-package apollomin;
+package factory.copy;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import org.apache.activemq.apollo.amqp.dto.AmqpDTO;
 import org.apache.activemq.apollo.dto.AcceptingConnectorDTO;
 import org.apache.activemq.apollo.dto.AccessRuleDTO;
 import org.apache.activemq.apollo.dto.AddUserHeaderDTO;
 import org.apache.activemq.apollo.dto.AuthenticationDTO;
 import org.apache.activemq.apollo.dto.BrokerDTO;
+import org.apache.activemq.apollo.dto.DetectDTO;
 import org.apache.activemq.apollo.dto.QueueDTO;
 import org.apache.activemq.apollo.dto.VirtualHostDTO;
 import org.apache.activemq.apollo.dto.WebAdminDTO;
+import org.apache.activemq.apollo.mqtt.dto.MqttDTO;
+import org.apache.activemq.apollo.openwire.dto.OpenwireDTO;
 import org.apache.activemq.apollo.stomp.dto.StompDTO;
 import org.apache.activemq.jaas.UserPrincipal;
 import org.slf4j.Logger;
@@ -96,16 +100,22 @@ public class ApolloConfigurationBuilder {
 		return this;
 	}
 
-	private AcceptingConnectorDTO defaultAcceptingConnectorDTO(String id, String protocolPrefix, int port) {
+	private AcceptingConnectorDTO defaultAcceptingConnectorDTO(String id, String protocolPrefix, String detectProtocol, int port) {
 		AcceptingConnectorDTO connector = new AcceptingConnectorDTO();
 		connector.id = id;
 		connector.bind = protocolPrefix + "://0.0.0.0:" + port;
 		connector.connection_limit = defaultMaxConnectionLimit;
+
+		DetectDTO detectDTO = new DetectDTO();
+		detectDTO.protocols = detectProtocol;
+
+		connector.other.add(detectDTO);
+
 		return connector;
 	}
 
 	public ApolloConfigurationBuilder stomp(int port) {
-		AcceptingConnectorDTO connector = defaultAcceptingConnectorDTO("stomp@" + port, "tcp", port);
+		AcceptingConnectorDTO connector = defaultAcceptingConnectorDTO("stomp@" + port, "tcp", "stomp", port);
 
 		StompDTO stompDto = new StompDTO();
 		connector.protocols.add(stompDto);
@@ -115,7 +125,7 @@ public class ApolloConfigurationBuilder {
 	}
 
 	public ApolloConfigurationBuilder stompOverWebsocket(int port) {
-		AcceptingConnectorDTO connector = defaultAcceptingConnectorDTO("websockets-stomp@" + port, "ws", port);
+		AcceptingConnectorDTO connector = defaultAcceptingConnectorDTO("websockets-stomp@" + port, "ws", "stomp", port);
 
 		StompDTO stompDto = new StompDTO();
 		connector.protocols.add(stompDto);
@@ -125,15 +135,36 @@ public class ApolloConfigurationBuilder {
 	}
 
 	public ApolloConfigurationBuilder amqp(int port) {
-		throw new RuntimeException("Not implemented yet.");
+		AcceptingConnectorDTO connector = defaultAcceptingConnectorDTO("amqp@" + port, "tcp", "amqp", port);
+
+		AmqpDTO amqpDto = new AmqpDTO();
+
+		connector.protocols.add(amqpDto);
+		this.connectors.add(connector);
+
+		return this;
 	}
 
 	public ApolloConfigurationBuilder mqtt(int port) {
-		throw new RuntimeException("Not implemented yet.");
+
+		AcceptingConnectorDTO connector = defaultAcceptingConnectorDTO("mqtt@" + port, "tcp", "mqtt", port);
+
+		MqttDTO mqttDto = new MqttDTO();
+
+		connector.protocols.add(mqttDto);
+		this.connectors.add(connector);
+
+		return this;
 	}
 
 	public ApolloConfigurationBuilder openWire(int port) {
-		throw new RuntimeException("Not implemented yet.");
+		AcceptingConnectorDTO connector = defaultAcceptingConnectorDTO("openwire@" + port, "tcp", "openwire", port);
+
+		OpenwireDTO openWireDto = new OpenwireDTO();
+		connector.protocols.add(openWireDto);
+
+		this.connectors.add(connector);
+		return this;
 	}
 
 	public ApolloConfigurationBuilder defaultMaxConnectionLimit(int limit) {
@@ -197,6 +228,16 @@ public class ApolloConfigurationBuilder {
 
 				if (protocol instanceof StompDTO) {
 					((StompDTO) protocol).add_user_headers.addAll(this.addUserHeaders);
+
+				} else if (protocol instanceof OpenwireDTO) {
+					((OpenwireDTO) protocol).add_jmsxuserid = true;
+
+				} else if (protocol instanceof AmqpDTO) {
+					// No support for authenticated user headers
+
+				} else if (protocol instanceof MqttDTO) {
+					// No support for authenticated user headers
+
 				} else {
 					throw new RuntimeException("Unsupported protocol: " + protocol);
 				}
@@ -219,5 +260,4 @@ public class ApolloConfigurationBuilder {
 
 		return brokerConfiguration;
 	}
-
 }

@@ -35,6 +35,16 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
+			<artifactId>apollo-mqtt</artifactId>
+			<version>${apache.apollo.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>apollo-amqp</artifactId>
+			<version>${apache.apollo.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
 			<artifactId>apollo-openwire</artifactId>
 			<version>${apache.apollo.version}</version>
 		</dependency>

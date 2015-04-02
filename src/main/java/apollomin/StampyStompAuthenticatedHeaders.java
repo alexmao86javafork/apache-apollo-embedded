@@ -3,11 +3,11 @@ package apollomin;
 import java.util.Map.Entry;
 
 import org.apache.activemq.apollo.broker.Broker;
-import org.apache.activemq.apollo.dto.BrokerDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.bridge.SLF4JBridgeHandler;
 
+import apollomin.factory.ApolloEmbeddedFactory;
+import apollomin.factory.StompClientStampyFactory;
 import asia.stampy.client.message.send.SendMessage;
 import asia.stampy.client.message.subscribe.SubscribeMessage;
 import asia.stampy.client.netty.ClientNettyMessageGateway;
@@ -16,25 +16,12 @@ import asia.stampy.common.gateway.StampyMessageListener;
 import asia.stampy.common.message.StampyMessage;
 import asia.stampy.common.message.StompMessageType;
 import asia.stampy.server.message.message.MessageMessage;
-import de.uniluebeck.itm.util.logging.LogLevel;
-import de.uniluebeck.itm.util.logging.Logging;
 
-public class Main {
+public class StampyStompAuthenticatedHeaders {
 
 	public static void main(String[] args) throws Exception {
-		// Set up logging
-		SLF4JBridgeHandler.removeHandlersForRootLogger(); // (since SLF4J 1.6.5)
-		SLF4JBridgeHandler.install();
-		Logging.setLoggingDefaults(LogLevel.DEBUG);
-
-		final Logger log = LoggerFactory.getLogger(Main.class);
-
-		// Create an embedded broker instance
-		BrokerDTO brokerConfig = new ApolloConfigurationBuilder().stomp(8889).queueNonPersistentNoExpiration("queue1").externalAccess()
-				.authenticatedHeader("authenticated-user-name").jaasAuthentication("src/main/resources/demo.jaas")
-				.alwaysTrueAuthorization().build();
-
-		Broker broker = ApolloEmbeddedFactory.start(brokerConfig);
+		Broker broker = ApolloEmbeddedFactory.start(CommonStartupStuff.setup().stomp(8889).build());
+		Logger log = LoggerFactory.getLogger(StampyStompAuthenticatedHeaders.class);
 
 		// Create a listener
 		ClientNettyMessageGateway listener = StompClientStampyFactory.createClientConnection("localhost", 8889, "demo", "demo");
