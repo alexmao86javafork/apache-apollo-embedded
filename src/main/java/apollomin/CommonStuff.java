@@ -1,12 +1,13 @@
 package apollomin;
 
+import org.apache.activemq.apollo.broker.Broker;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import apollomin.factory.ApolloConfigurationBuilder;
 import de.uniluebeck.itm.util.logging.LogLevel;
 import de.uniluebeck.itm.util.logging.Logging;
 
-public class CommonStartupStuff {
+public class CommonStuff {
 
 	public static ApolloConfigurationBuilder setup() throws Exception {
 		// Set up logging
@@ -18,5 +19,15 @@ public class CommonStartupStuff {
 				.authenticatedHeader("authenticated-user-name").jaasAuthentication("src/main/resources/demo.jaas")
 				.alwaysTrueAuthorization();
 
+	}
+
+	public static void teardownAndExit(Broker broker) {
+		broker.stop(new Runnable() {
+
+			@Override
+			public void run() {
+				System.exit(0);
+			}
+		});
 	}
 }

@@ -27,7 +27,7 @@
 			<version>1.10</version>
 		</dependency>
 
-		<!-- Message queueing system -->
+		<!-- Apache Apollo Message queueing system -->
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>apollo-stomp</artifactId>
@@ -48,6 +48,27 @@
 			<artifactId>apollo-openwire</artifactId>
 			<version>${apache.apollo.version}</version>
 		</dependency>
+
+		<!-- JMS API -->
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-jms_1.1_spec</artifactId>
+			<version>1.1</version>
+		</dependency>
+
+		<!-- Active MQ Client (including support for legavy versions) -->
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-client</artifactId>
+			<version>5.11.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-openwire-legacy</artifactId>
+			<version>5.11.1</version>
+		</dependency>
+
+
 		<!-- STOMP client -->
 		<dependency>
 			<groupId>asia.stampy</groupId>

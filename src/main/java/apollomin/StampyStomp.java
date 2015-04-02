@@ -17,11 +17,11 @@ import asia.stampy.common.message.StampyMessage;
 import asia.stampy.common.message.StompMessageType;
 import asia.stampy.server.message.message.MessageMessage;
 
-public class StampyStompAuthenticatedHeaders {
+public class StampyStomp {
 
 	public static void main(String[] args) throws Exception {
-		Broker broker = ApolloEmbeddedFactory.start(CommonStartupStuff.setup().stomp(8889).build());
-		Logger log = LoggerFactory.getLogger(StampyStompAuthenticatedHeaders.class);
+		Broker broker = ApolloEmbeddedFactory.start(CommonStuff.setup().stomp(8889).build());
+		Logger log = LoggerFactory.getLogger(StampyStomp.class);
 
 		// Create a listener
 		ClientNettyMessageGateway listener = StompClientStampyFactory.createClientConnection("localhost", 8889, "demo", "demo");
@@ -64,12 +64,6 @@ public class StampyStompAuthenticatedHeaders {
 		Thread.sleep(2000);
 		listener.shutdown();
 		producer.shutdown();
-		broker.stop(new Runnable() {
-
-			@Override
-			public void run() {
-				System.exit(0);
-			}
-		});
+		CommonStuff.teardownAndExit(broker);
 	}
 }
