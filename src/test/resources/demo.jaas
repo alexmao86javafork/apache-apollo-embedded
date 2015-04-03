@@ -1,4 +1,4 @@
 Internal {
-	apollomin.jaas.HtpasswdLoginModule REQUIRED htpasswdFile = "src/main/resources/demo.htpasswd";
+	de.farberg.apollo.jaas.HtpasswdLoginModule REQUIRED htpasswdFile = "src/main/resources/demo.htpasswd";
 };
 
