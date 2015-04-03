@@ -49,33 +49,6 @@
 			<version>${apache.apollo.version}</version>
 		</dependency>
 
-		<!-- JMS API -->
-		<dependency>
-			<groupId>org.apache.geronimo.specs</groupId>
-			<artifactId>geronimo-jms_1.1_spec</artifactId>
-			<version>1.1</version>
-		</dependency>
-
-		<!-- Active MQ Client (including support for legavy versions) -->
-		<dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-client</artifactId>
-			<version>5.11.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-openwire-legacy</artifactId>
-			<version>5.11.1</version>
-		</dependency>
-
-
-		<!-- STOMP client -->
-		<dependency>
-			<groupId>asia.stampy</groupId>
-			<artifactId>stampy-NETTY-client-server-RI</artifactId>
-			<version>1.0-RELEASE</version>
-		</dependency>
-
 		<!-- Logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -96,13 +69,6 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.7.7</version>
-		</dependency>
-
-		<!-- Some little helpers -->
-		<dependency>
-			<groupId>de.uniluebeck.itm.util</groupId>
-			<artifactId>logging</artifactId>
-			<version>0.7</version>
 		</dependency>
 
 	</dependencies>
@@ -135,6 +101,42 @@
 				</executions>
 				<configuration>
 					<mainClass>de.farberg.apollo.OpenWire</mainClass>
+				</configuration>
+			</plugin>
+
+			<!-- Attach sources -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- License formatter: mvn license:check / mvn license:format -->
+			<plugin>
+				<groupId>com.mycila.maven-license-plugin</groupId>
+				<version>1.9.0</version>
+				<artifactId>maven-license-plugin</artifactId>
+				<configuration>
+					<header>src/etc/license.txt</header>
+
+					<strictCheck>true</strictCheck>
+
+					<excludes>
+						<exclude>.git/**</exclude>
+						<exclude>**/*.html</exclude>
+						<exclude>.gitignore</exclude>
+						<exclude>README*</exclude>
+						<exclude>**/*.json</exclude>
+						<exclude>**/bower_components/**</exclude>
+						<exclude>.idea</exclude>
+					</excludes>
 				</configuration>
 			</plugin>
 
