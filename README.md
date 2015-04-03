@@ -1,4 +1,4 @@
-Simple Apache Apollo Embedded Helpers and Examples
+Simple Apache Apollo Embedded Helper
 =============
 
 Requirements
@@ -16,8 +16,18 @@ Building
 ======
 To build the server side, run "mvn package", this will build the program and place the generated jar file in the directory "target/".
 
-Running
+Usage
 ======
-To Run "mvn exec:java". 
+Example using the configuration builder:
 
-For help on available command line options, run mvn exec:java -Dexec.args="--help" (for more details, cf. http://mojo.codehaus.org/exec-maven-plugin/java-mojo.html).
+```
+ApolloConfigurationBuilder configBuilder = new ApolloConfigurationBuilder()
+		.openWire(9999)
+		.queueNonPersistentNoExpiration("queue1")
+		.externalAccess()
+		.authenticatedHeader("authenticated-user-name")
+		.jaasAuthentication("src/main/resources/demo.jaas")
+		.alwaysTrueAuthorization();
+		
+Broker broker = ApolloEmbeddedFactory.start(configBuilder.build());
+```

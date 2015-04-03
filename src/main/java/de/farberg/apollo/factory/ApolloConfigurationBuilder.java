@@ -18,13 +18,8 @@ import org.apache.activemq.apollo.mqtt.dto.MqttDTO;
 import org.apache.activemq.apollo.openwire.dto.OpenwireDTO;
 import org.apache.activemq.apollo.stomp.dto.StompDTO;
 import org.apache.activemq.jaas.UserPrincipal;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class ApolloConfigurationBuilder {
-
-	private static final Logger log = LoggerFactory.getLogger(ApolloConfigurationBuilder.class);
-
 	private String jaasConfigFile = null;
 	private boolean enableAlwaysTrueAuthorization = false;
 	private boolean enableLocalhostAccess = true;
@@ -173,15 +168,11 @@ public class ApolloConfigurationBuilder {
 	}
 
 	public BrokerDTO build() {
-		log.info("Starting embedded message queuing broker...");
-
 		// Create the configuration
 		BrokerDTO brokerConfiguration = new BrokerDTO();
 
 		// Authentication settings
 		if (jaasConfigFile != null) {
-			log.info("Enabling security on the broker using JAAS file {}", jaasConfigFile);
-
 			// Set the location of the JAAS configuration file accordingly
 			System.setProperty("java.security.auth.login.config", jaasConfigFile);
 
@@ -190,8 +181,6 @@ public class ApolloConfigurationBuilder {
 			brokerConfiguration.authentication.enabled = true;
 			brokerConfiguration.authentication.domain = "Internal";
 
-		} else {
-			log.warn("Not using authentication/autorization. This configuration is insecure.");
 		}
 
 		// Authorization settings
@@ -251,8 +240,7 @@ public class ApolloConfigurationBuilder {
 
 		// Fires up the web admin console on HTTP.
 		if (this.webAdminPort > 0) {
-			String webAdminUrl = "http://127.0.0.1:3333";
-			log.warn("Enabling Web Admin interface on {}", webAdminUrl);
+			String webAdminUrl = "http://127.0.0.1:" + this.webAdminPort;
 			WebAdminDTO webadmin = new WebAdminDTO();
 			webadmin.bind = webAdminUrl;
 			brokerConfiguration.web_admins.add(webadmin);
