@@ -1,4 +1,4 @@
-package apollomin;
+package de.farberg.apollo;
 
 import java.util.Map.Entry;
 
@@ -6,8 +6,8 @@ import org.apache.activemq.apollo.broker.Broker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import apollomin.factory.ApolloEmbeddedFactory;
-import apollomin.factory.StompClientStampyFactory;
+import de.farberg.apollo.factory.ApolloEmbeddedFactory;
+import de.farberg.apollo.factory.StompClientStampyFactory;
 import asia.stampy.client.message.send.SendMessage;
 import asia.stampy.client.message.subscribe.SubscribeMessage;
 import asia.stampy.client.netty.ClientNettyMessageGateway;

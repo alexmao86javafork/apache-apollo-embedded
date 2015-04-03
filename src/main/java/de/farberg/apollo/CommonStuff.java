@@ -1,9 +1,9 @@
-package apollomin;
+package de.farberg.apollo;
 
 import org.apache.activemq.apollo.broker.Broker;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
-import apollomin.factory.ApolloConfigurationBuilder;
+import de.farberg.apollo.factory.ApolloConfigurationBuilder;
 import de.uniluebeck.itm.util.logging.LogLevel;
 import de.uniluebeck.itm.util.logging.Logging;
 

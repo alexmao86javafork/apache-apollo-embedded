@@ -1,4 +1,4 @@
-package apollomin.factory;
+package de.farberg.apollo.factory;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

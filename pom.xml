@@ -3,8 +3,8 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>apache-apollo-minimal</groupId>
-	<artifactId>apache-apollo-minimal</artifactId>
+	<groupId>de.farberg.apollo</groupId>
+	<artifactId>apache-apollo-embedded</artifactId>
 	<version>0.1-SNAPSHOT</version>
 	<name></name>
 
@@ -134,12 +134,25 @@
 					</execution>
 				</executions>
 				<configuration>
-					<mainClass>apollomin.Main</mainClass>
+					<mainClass>de.farberg.apollo.OpenWire</mainClass>
 				</configuration>
 			</plugin>
 
 		</plugins>
 	</build>
+
+	<distributionManagement>
+		<repository>
+			<id>farberg</id>
+			<name>Farberg Releases</name>
+			<url>http://nexus.farberg.de/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>farberg</id>
+			<name>Farberg Releases</name>
+			<url>http://nexus.farberg.de/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 	<repositories>
 		<repository>

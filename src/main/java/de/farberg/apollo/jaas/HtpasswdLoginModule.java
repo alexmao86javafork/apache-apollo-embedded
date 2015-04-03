@@ -1,4 +1,4 @@
-package apollomin.jaas;
+package de.farberg.apollo.jaas;
 
 import java.io.IOException;
 import java.security.Principal;

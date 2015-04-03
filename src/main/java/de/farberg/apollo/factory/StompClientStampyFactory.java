@@ -1,4 +1,4 @@
-package apollomin.factory;
+package de.farberg.apollo.factory;
 
 import asia.stampy.client.listener.validate.ClientMessageValidationListener;
 import asia.stampy.client.message.connect.ConnectMessage;

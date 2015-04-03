@@ -1,4 +1,4 @@
-package apollomin.jaas;
+package de.farberg.apollo.jaas;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

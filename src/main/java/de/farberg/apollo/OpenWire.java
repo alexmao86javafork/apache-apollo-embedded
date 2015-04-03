@@ -1,4 +1,4 @@
-package apollomin;
+package de.farberg.apollo;
 
 import javax.jms.Connection;
 import javax.jms.Destination;
@@ -12,7 +12,7 @@ import org.apache.activemq.apollo.broker.Broker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import apollomin.factory.ApolloEmbeddedFactory;
+import de.farberg.apollo.factory.ApolloEmbeddedFactory;
 
 public class OpenWire {
 
