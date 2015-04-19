@@ -31,3 +31,50 @@ ApolloConfigurationBuilder configBuilder = new ApolloConfigurationBuilder()
 		
 Broker broker = ApolloEmbeddedFactory.start(configBuilder.build());
 ```
+
+Maven configuration:
+
+```
+	<dependencies>
+	[...]
+
+		<!-- Apache Apollo Embedded Configuration Helper -->
+		<dependency>
+			<groupId>de.farberg.apollo</groupId>
+			<artifactId>apache-apollo-embedded</artifactId>
+			<version>0.1-SNAPSHOT</version>
+		</dependency>
+
+	[...]
+	</dependencies>
+
+	[...]
+	
+	<repositories>
+	[...]
+
+		<repository>
+			<id>farberg-releases</id>
+			<url>http://nexus.farberg.de/content/repositories/releases/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>farberg-snapshots</id>
+			<url>http://nexus.farberg.de/content/repositories/snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+
+	[...]
+	</repositories>
+
+```
